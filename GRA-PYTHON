@@ -1,0 +1,66 @@
+import random
+import time
+from turtledemo.penrose import start
+
+mystery = random.randint(1,10)
+dialog = True
+proby = 0
+def program():
+    global dialog
+    start_time = time.time()
+    while dialog:
+        odp = input("podaj liczbe od 1 do 10 i zgadnij!\n")
+        if odp:
+            try:
+                odp_int = int(odp)
+                if odp_int == mystery:
+                    print("win")
+                    dialog = False
+                    end_time = time.time()
+                    print(end_time - start_time)
+                    if end_time - start_time < 5:
+                        print("ALE SZYBKO!\n", "dostajesz bonus +5 prób w kolejnym LEVELU!")
+                        global proby
+                        proby = -5
+                        time.sleep(1)
+
+
+            except ValueError:
+                print("to nie liczba")
+
+program()
+dialog2 = True
+print("kolejny level\n\n\n")
+def level1():
+    global dialog2
+    global proby
+    mystery2 = random.randint(1,100)
+    pytaniepewnosci = input("Chcesz isc dalej?\n")
+    if pytaniepewnosci.lower() in ["tak", "yes", "t", "ta", "y", "ye", "taak", "of course"]:
+        print("uwaga tutaj juz masz tylko 10 prób :)")
+        while dialog2:
+            pytanie = input("podaj liczbe od 1 do 100 i zgadnij!\n")
+            if pytanie:
+                try:
+                    pytanie_int = int(pytanie)
+                    if proby != 9:
+                        if pytanie_int == mystery2:
+                            print("win")
+                            dialog2 = False
+                        else:
+                            proby = proby + 1
+                    else:
+                        print("koniec prób :((((")
+                        odpkoniec = input("chcesz reset?\n")
+                        if odpkoniec.lower() in ["yes", "y", "t", "ta", "y", "ye", "taak", "of course"]:
+                            dialog = True
+                            proby = 0
+                            odpkoniec = False
+                            program()
+                        else:
+                            exit()
+
+                except ValueError:
+                    print("to nie liczba")
+                    proby = proby + 1
+level1()
