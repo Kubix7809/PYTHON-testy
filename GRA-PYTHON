@@ -1,6 +1,6 @@
 import random
 import time
-from turtledemo.penrose import start
+
 
 mystery = random.randint(1,10)
 dialog = True
@@ -64,3 +64,25 @@ def level1():
                     print("to nie liczba")
                     proby = proby + 1
 level1()
+poziom = 1
+def testlevel():
+    global poziom
+    liczba = 100 * int(poziom)
+    print("DEBUG: Zakres = ", liczba) #DEBUG-----------------
+    prawidlowa_liczba = random.randint(1, liczba)
+    print("DEBUG: Prawidlowa liczba = ", prawidlowa_liczba) #DEBUG---------------
+    print("testowy poziom tutaj masz liczbę od 1 do", liczba, '\n')
+    traf = int(input())
+    while traf:
+        try:
+            traf_int = int(traf)
+            if traf == prawidlowa_liczba:
+                print("wow brawo!")
+                time.sleep(1)
+                cos = input("chcesz dalej???\n")
+                if cos.lower() in ["tak", "yes", "t", "ta", "y", "ye", "taak", "of course"]:
+                    poziom = poziom * 2
+                    testlevel()
+        except ValueError:
+            print("to nie liczba ziomek :/")
+testlevel()
